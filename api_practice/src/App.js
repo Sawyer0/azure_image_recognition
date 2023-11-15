@@ -1,9 +1,13 @@
+import { useState } from "react";
 import UsersList from "./components/usersList";
 import UsersPosts from "./components/usersPosts";
 import useFetchUsers from "./api/useFetchUsers";
 import useFetchPosts from "./api/useFetchPosts";
+import AddPost from "./components/addPosts";
 
 function App() {
+  const [newPosts, setNewPosts] = useState([]);
+
   const {
     data: users,
     usersError,
@@ -15,6 +19,9 @@ function App() {
     postsLoading,
   } = useFetchPosts("https://jsonplaceholder.typicode.com/posts");
   
+  const handlePostAdded = (newPost) => {
+    setNewPosts(currentPosts => [...currentPosts, newPost]);
+  };
 
   if (usersLoading) return <div>Loading...</div>;
   if (usersError) return <div>Error fetching users</div>;
@@ -27,6 +34,8 @@ function App() {
     <div>
       <h1>Users</h1>
       <UsersList users={users}/>
+      <h1>Posts</h1>
+      <AddPost onAddPost={handlePostAdded} />
       <UsersPosts posts={posts} />
     </div>
   );
