@@ -1,14 +1,23 @@
-import UsersList from "./usersList";
+import UsersList from "./components/usersList";
+import useFetchUsers from "./customHooks/useFetchUsers";
 
-const App = () => {
+function App() {
+  const {
+    data: users,
+    error,
+    loading,
+  } = useFetchUsers("https://jsonplaceholder.typicode.com/users");
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error fetching users</div>;
+
+
   return (
     <div>
       <h1>Users</h1>
-      <UsersList />
+      <UsersList users={users}/>
     </div>
-  )
+  );
 }
-
-
 
 export default App;
