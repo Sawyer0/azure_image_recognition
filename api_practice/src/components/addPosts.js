@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 
-const AddPost = ({ onAddPost }) => {
+const AddPost = ({ onAddPost, onPostDelete, postId }) => {
   const [title, setTitle] = useState("");
   const [body, setbody] = useState("");
 
@@ -9,8 +9,7 @@ const AddPost = ({ onAddPost }) => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "https://jsonplaceholder.typicode.com/posts",
-        {
+        "https://jsonplaceholder.typicode.com/posts",{
           title,
           body,
           userId: 1,
@@ -23,8 +22,9 @@ const AddPost = ({ onAddPost }) => {
       if (onAddPost) {
         onAddPost(response.data);
       }
+      console.log('Post added:', response.data);
     } catch (error) {
-      console.error("Error adding posts:", error);
+      console.error('Error adding post:', error);
     }
   };
 
