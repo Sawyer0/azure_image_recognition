@@ -1,7 +1,7 @@
 import UsersList from "./components/usersList";
 import UsersPosts from "./components/usersPosts";
-import useFetchUsers from "./customHooks/useFetchUsers";
-import useFetchPosts from "./customHooks/useFetchPosts";
+import useFetchUsers from "./api/useFetchUsers";
+import useFetchPosts from "./api/useFetchPosts";
 
 function App() {
   const {
