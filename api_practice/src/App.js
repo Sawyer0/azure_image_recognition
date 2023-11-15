@@ -1,21 +1,33 @@
 import UsersList from "./components/usersList";
+import UsersPosts from "./components/usersPosts";
 import useFetchUsers from "./customHooks/useFetchUsers";
+import useFetchPosts from "./customHooks/useFetchPosts";
 
 function App() {
   const {
     data: users,
-    error,
-    loading,
+    usersError,
+    usersLoading,
   } = useFetchUsers("https://jsonplaceholder.typicode.com/users");
+  const {
+    data: posts,
+    postsError,
+    postsLoading,
+  } = useFetchPosts("https://jsonplaceholder.typicode.com/posts");
+  
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error fetching users</div>;
+  if (usersLoading) return <div>Loading...</div>;
+  if (usersError) return <div>Error fetching users</div>;
+
+  if (postsLoading) return <div>Loading...</div>;
+  if (postsError) return <div>Error fetching users</div>;
 
 
   return (
     <div>
       <h1>Users</h1>
       <UsersList users={users}/>
+      <UsersPosts posts={posts} />
     </div>
   );
 }
